@@ -161,6 +161,7 @@
 		4ADAE8A61BBB708400F109BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = com.training.codepath;
 				TargetAttributes = {
@@ -407,6 +408,7 @@
 				4ADAE8CF1BBB708400F109BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4ADAE8D01BBB708400F109BE /* Build configuration list for PBXNativeTarget "MailboxTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +417,7 @@
 				4ADAE8D21BBB708400F109BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
