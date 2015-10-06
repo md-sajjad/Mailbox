@@ -24,9 +24,13 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var reschedule: UIImageView!
     
+    @IBOutlet weak var list: UIImageView!
+    
     var messageOriginalCenter: CGPoint!
 
     var laterOriginalCenter: CGPoint!
+    
+    var archiveOriginalCenter: CGPoint!
 
     var messageOriginalBackgroundColor: UIColor!
     
@@ -44,6 +48,7 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
             
             messageOriginalCenter = message.center
             laterOriginalCenter = later.center
+            archiveOriginalCenter = archive.center
             
             print("messageOriginalCenter = \(messageOriginalCenter) \n", terminator: "")
         } else if sender.state == UIGestureRecognizerState.Changed
@@ -59,12 +64,22 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
             }
             
             if translation.x < -60 {
-                backgroundView.backgroundColor =
-                    UIColor(hex: 0xF3C636)
                 print("laterOriginalCenter.x: \(laterOriginalCenter.x), later.center.x: \(later.center.x), translation: \(translation) \n", terminator: "")
+                // Beyond x <> 60, move the icon as the message UIImage moves
                 later.center.x = laterOriginalCenter.x + translation.x + 60
-            } else {
-                backgroundView.backgroundColor = messageOriginalBackgroundColor
+                if translation.x < -260 { // Beyond 260 going left, Turn Brown & change icon
+                    backgroundView.backgroundColor = UIColor(hex:0x996633)
+                    later.image = UIImage(named:"list_icon")
+                } else {
+                    backgroundView.backgroundColor =
+                        UIColor(hex: 0xF3C636)
+                    later.image = UIImage(named:"later_icon")
+                }
+            }
+            else {
+                later.image = UIImage(named:"later_icon")
+                backgroundView.backgroundColor =
+                messageOriginalBackgroundColor
             }
             
             
@@ -80,7 +95,7 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
                     self.archive.alpha = 0.4
                     self.backgroundView.backgroundColor = self.messageOriginalBackgroundColor
                 })
-            } else {
+            } else if translation.x >= -260 { // Was Yellow, with Later Icon
                 UIView.animateWithDuration(0.7, animations: { () -> Void in
                     self.later.alpha = 0.05
                     self.archive.alpha = 0.05
@@ -93,6 +108,23 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
                                 // Do what next
                         })
                 })
+            } else { // Was Brown, with List Icon
+                UIView.animateWithDuration(0.7, animations: { () -> Void in
+                    self.later.alpha = 0.05
+                    self.archive.alpha = 0.05
+                    self.message.center.x = self.messageOriginalCenter.x - 320
+                    
+                    /*TODO*/
+                    self.list.alpha = 0.2 // Need to change this to viewShowList
+                    
+                    }, completion: { (completed1) -> Void in
+                        UIView.animateWithDuration(0.7, animations: { () -> Void in
+                            self.list.alpha = 0.95
+                            }, completion: { (completed2) -> Void in
+                                // Do what next
+                        })
+                })
+                
             }
             
         }
@@ -105,6 +137,7 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
         print("onTap")
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.reschedule.alpha = 0
+            self.list.alpha = 0
             }) { (completed) -> Void in
                 UIView.animateWithDuration(0.8, animations: { () -> Void in
                     self.feed.center.y -= 85
@@ -122,6 +155,8 @@ class MailboxViewController: UIViewController, UIScrollViewDelegate {
                 self.backgroundView.backgroundColor = self.messageOriginalBackgroundColor
                 self.later.alpha = 0.4
                 self.archive.alpha = 0.4
+                self.later.center = self.laterOriginalCenter
+                self.archive.center = self.archiveOriginalCenter
                 self.message.center.x = self.messageOriginalCenter.x
                 self.feed.center.y += 85
                 }, completion: { (completed) -> Void in

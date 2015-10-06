@@ -77,6 +77,14 @@
                                     <outletCollection property="gestureRecognizers" destination="97J-ff-9zB" appends="YES" id="qS2-vN-acA"/>
                                 </connections>
                             </imageView>
+                            <imageView alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list" id="jKd-6v-h8P">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1PM-su-OMg" appends="YES" id="w0T-ZR-U1w"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -86,6 +94,7 @@
                         <outlet property="backgroundView" destination="JEh-dN-BI0" id="52c-cq-Xpa"/>
                         <outlet property="feed" destination="7T6-ri-EqQ" id="EoX-qT-Jyg"/>
                         <outlet property="later" destination="oMG-ON-gif" id="XWq-bA-3WR"/>
+                        <outlet property="list" destination="jKd-6v-h8P" id="Z4B-Ew-GDT"/>
                         <outlet property="message" destination="Rdb-jP-dME" id="hJa-LK-O3C"/>
                         <outlet property="reschedule" destination="fWW-oe-cFS" id="duY-Fp-6Av"/>
                         <outlet property="scrollView" destination="F4Z-NT-Xgd" id="vKr-gN-To3"/>
@@ -105,6 +114,11 @@
                 <tapGestureRecognizer id="3pr-rL-eYq" userLabel="Feed Tab Gesture Recognizer">
                     <connections>
                         <action selector="onTapFeed:" destination="JGK-rM-hwY" id="e3B-Ci-zWt"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="1PM-su-OMg" userLabel="List Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="onTapRescheduleOrList:" destination="JGK-rM-hwY" id="hZu-yL-NNm"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -134,6 +148,7 @@
         <image name="feed" width="320" height="1202"/>
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
+        <image name="list" width="320" height="568"/>
         <image name="message" width="320" height="86"/>
         <image name="nav" width="320" height="65"/>
         <image name="reschedule" width="320" height="568"/>
